@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="LogSourceBackers_Test" Id="{df0e1823-0032-4a5e-8e89-8f5531ef3082}" SpecialFunc="None">
+    <Declaration><![CDATA[{ attribute 'Name':='LogSourceBackers-Test' }
+{ attribute 'Timeout':='t#5s' }
+{ attribute 'Owner':='TestOwner' }
+FUNCTION_BLOCK LogSourceBackers_Test EXTENDS FB_TestCaseBase
+VAR
+	Source		   : LogSource;
+	expectedSource : STRING := 'Test';
+	expectedTime   : T_FILETIME64 := 1234;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Source.SourceName := expectedSource;
+Source.Timestamp  := expectedTime;
+AssertMsg(Source.SourceName = expectedSource, 'SourceName getter/setter does NOT work');
+AssertMsg(Source.Timestamp = expectedTime, 'Timestamp getter/setter does NOT work');
+Succeeded();]]></ST>
+    </Implementation>
+    <Method Name="Cleanup" Id="{fdf3910c-95da-47d0-b343-5acc1b8f11d0}">
+      <Declaration><![CDATA[(*Must be implemented if you want to use fastmode*)
+METHOD CleanUp : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CleanUp := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

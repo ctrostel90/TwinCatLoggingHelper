@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="MAIN" Id="{c71f2366-b8c2-4cb7-b729-507396079bcf}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Logger			: LogHelper<2>;
+	LocalLog		: LocalLogger;
+	initialized		: BOOL;
+	Message			: LogMessage;
+	Source			: LogSource;
+	MotionArg		: MotionArgument;
+	MotionParameters : ST_MotionParameters;
+	
+	//Commands
+	logNoArgument	: BOOL;
+	logWithArgument : BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT initialized THEN
+	initialized			 := TRUE;
+	MotionArg.Parameters REF= MotionParameters;
+	Logger.Subscribe(LocalLog);
+END_IF
+
+IF logNoArgument THEN
+	Source.SourceName := 'Test';
+	Source.Timestamp := 123456789;
+	Message.Message := 'Message';
+	Message.Severity := 12;
+	Logger.LogMessage(Source, Message);
+	logNoArgument := FALSE;
+END_IF
+
+IF logWithArgument THEN
+	Logger.LogMessage(Source, Message, MotionArg);
+	logWithArgument := FALSE;
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

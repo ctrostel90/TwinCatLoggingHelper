@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="LogHelper" Id="{ac382d47-41e7-46b6-a586-0e092e3a8008}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK LogHelper
+VAR_GENERIC CONSTANT
+	MaxNumberOfSubscribers : USINT := 5;
+END_VAR IMPLEMENTS I_LogPublisher
+VAR
+	SubscriberCount	   : USINT;
+	_SubscribedLoggers : ARRAY[0..MaxNumberOfSubscribers - 1] OF I_Logger;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="I_Logger" Id="{ff72a690-f6ff-4cff-aeea-fab5c8762150}" />
+    <Folder Name="I_LogPublisher" Id="{7b39ad53-2a48-41ef-b74f-d11f00fcc189}" />
+    <Method Name="LogMessage" Id="{24085e05-2d59-41ed-8d16-f39ec71e70b6}" FolderPath="I_Logger\">
+      <Declaration><![CDATA[METHOD LogMessage
+VAR_INPUT
+	Source	 : I_LogSource;
+	Message	 : I_LogMessage;
+	Argument : I_LogArgument := 0;
+END_VAR
+VAR
+	i : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO SubscriberCount - 1 DO
+	IF _SubscribedLoggers[i] = 0 THEN
+		//Don't create page faults with empty entries
+		CONTINUE;
+	END_IF
+
+	//vary log calls depending on if there is an argument provided or not
+	IF Argument = 0 THEN
+		_SubscribedLoggers[i].LogMessage(Source := Source, Message := Message);
+	ELSE
+		_SubscribedLoggers[i].LogMessage(Source := Source, Message := Message, Argument := Argument);
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Subscribe" Id="{98156d33-09bb-4c11-84ab-6dd3bee9e59d}" FolderPath="I_LogPublisher\">
+      <Declaration><![CDATA[METHOD Subscribe : BOOL
+VAR_INPUT
+	Logger : I_Logger;
+END_VAR
+VAR
+	i : UDINT;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF SubscriberCount >= MaxNumberOfSubscribers THEN
+	//Unable to accept any new loggers, early exit
+	RETURN;
+END_IF
+
+FOR i := 0 TO MaxNumberOfSubscribers - 1 DO
+	IF _SubscribedLoggers[i] = Logger THEN
+		//Don't allow duplicates
+		RETURN;
+	END_IF
+
+	IF _SubscribedLoggers[i] = 0 THEN
+		//Add the logger , incremement count and return succcess
+		_SubscribedLoggers[i] := Logger;
+		SubscriberCount		  := SubscriberCount + 1;
+		Subscribe			  := TRUE;
+		RETURN;
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Unsubscribe" Id="{c598b2d2-ec39-4ffc-ac1c-8b05418a6769}" FolderPath="I_LogPublisher\">
+      <Declaration><![CDATA[METHOD Unsubscribe : BOOL
+VAR_INPUT
+	Logger : I_Logger;
+END_VAR
+VAR
+	i : USINT;
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF SubscriberCount = 0 THEN
+	//Don't bother if no subscriptions are present
+	RETURN;
+END_IF
+
+FOR i := 0 TO SubscriberCount - 1 DO
+	IF _SubscribedLoggers[i] = 0 THEN
+		//Don't do anything on empty log entries
+		CONTINUE;
+	END_IF
+
+	IF _SubscribedLoggers[i] = Logger THEN
+		//Remove logger, decrement and return true
+		_SubScribedLoggers[i] := 0;
+		SubscriberCount		  := SubscriberCount - 1;
+		Unsubscribe			  := TRUE;
+		RETURN;
+	END_IF
+END_FOR]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

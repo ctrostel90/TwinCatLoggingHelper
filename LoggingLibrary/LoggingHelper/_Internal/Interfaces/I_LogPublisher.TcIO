@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <Itf Name="I_LogPublisher" Id="{ea9d2ea5-43f4-4650-af40-51c63840987d}">
+    <Declaration><![CDATA[INTERFACE I_LogPublisher EXTENDS I_Base
+]]></Declaration>
+    <Method Name="Subscribe" Id="{74e714b6-6b9c-4109-8cf4-bb7075dbf021}">
+      <Declaration><![CDATA[METHOD Subscribe : BOOL
+VAR_INPUT
+	Logger : I_Logger;
+END_VAR
+]]></Declaration>
+    </Method>
+    <Method Name="Unsubscribe" Id="{c8393ae7-2496-47c0-adeb-8f4bdc3ac4ba}">
+      <Declaration><![CDATA[METHOD Unsubscribe : BOOL
+VAR_INPUT
+	Logger : I_Logger;
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

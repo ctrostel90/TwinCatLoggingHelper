@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="MotionArgument" Id="{52e064b7-5081-4d35-b2ef-fdf75d75d196}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK MotionArgument IMPLEMENTS I_LogArgument
+VAR
+	_Pars : REFERENCE TO ST_MotionParameters;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Parameters" Id="{8dd60db5-ab77-49a5-b82a-1c10d97f71ab}">
+      <Declaration><![CDATA[PROPERTY Parameters : REFERENCE TO ST_MotionParameters]]></Declaration>
+      <Get Name="Get" Id="{73c7b1f6-6c5d-43ef-9948-7f3c32e05c54}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Parameters := _Pars;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{37c52a50-825f-473a-9b57-63dfc3d52d38}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Pars REF= Parameters;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Method Name="ToString" Id="{ac385968-e963-447f-9c9e-ac4174389186}">
+      <Declaration><![CDATA[METHOD ToString : Logging_Helper.T_MaxString
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ToString := CONCAT('Vel: ', CONCAT(TO_STRING(_Pars.Velocity), CONCAT(' Accel: ', CONCAT(TO_STRING(_Pars.Accel), CONCAT(' Decel: ', CONCAT(TO_STRING(_Pars.Decel), CONCAT(' Jerk: ',TO_STRING(_Pars.Jerk))))))));]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

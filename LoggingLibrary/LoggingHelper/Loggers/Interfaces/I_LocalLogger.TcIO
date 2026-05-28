@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <Itf Name="I_LocalLogger" Id="{6b5d6574-c45c-4446-9540-3b860aa6d89d}">
+    <Declaration><![CDATA[INTERFACE I_LocalLogger EXTENDS I_Logger
+]]></Declaration>
+    <Method Name="ClearLog" Id="{aab9279b-770a-450b-a753-60be4e9d73e7}">
+      <Declaration><![CDATA[METHOD ClearLog
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Messages" Id="{16694fde-8e1f-4d71-a704-8aecc541abda}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY Messages : REFERENCE TO ARRAY[0..Parameters.MaxMessages - 1] OF T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{7123a0cc-6596-421e-98d3-5b33a3bf0c19}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

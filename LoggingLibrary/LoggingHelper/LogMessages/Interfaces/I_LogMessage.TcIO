@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <Itf Name="I_LogMessage" Id="{caeea022-9a98-4f91-a84a-4c56294719e7}">
+    <Declaration><![CDATA[INTERFACE I_LogMessage EXTENDS I_Base
+]]></Declaration>
+    <Property Name="Message" Id="{3247f9da-f097-4150-a87e-6edc0d8d5d75}">
+      <Declaration><![CDATA[{attribute 'monitoring':='call'}
+PROPERTY Message : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{79fe41e0-3c23-44ba-84ec-723cc4ea48a0}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Severity" Id="{333cf483-d36b-4f6a-ba34-380c4d3cb3dc}">
+      <Declaration><![CDATA[{attribute 'monitoring':='call'}
+PROPERTY Severity : USINT]]></Declaration>
+      <Get Name="Get" Id="{ee71fe8a-5f76-4eef-97f6-3b8f10e7ab17}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>

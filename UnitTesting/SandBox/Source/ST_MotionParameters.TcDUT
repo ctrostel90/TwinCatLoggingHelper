@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <DUT Name="ST_MotionParameters" Id="{3bc1a03c-5002-47ee-a8c5-dbc29ee364a0}">
+    <Declaration><![CDATA[TYPE ST_MotionParameters :
+	STRUCT
+		Velocity : LREAL;
+		Accel	 : LREAL;
+		Decel	 : LREAL;
+		Jerk	 : LREAL;
+	END_STRUCT
+END_TYPE]]></Declaration>
+  </DUT>
+</TcPlcObject>

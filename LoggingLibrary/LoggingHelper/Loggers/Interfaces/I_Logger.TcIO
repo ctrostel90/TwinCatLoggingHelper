@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <Itf Name="I_Logger" Id="{9890967c-f9c9-4cee-bb47-60570659cfcf}">
+    <Declaration><![CDATA[INTERFACE I_Logger EXTENDS I_Base
+]]></Declaration>
+    <Method Name="LogMessage" Id="{d2d38b29-caa7-4b58-b4c6-ec3dec7319a0}">
+      <Declaration><![CDATA[METHOD LogMessage
+VAR_INPUT
+	Source	 : I_LogSource;
+	Message	 : I_LogMessage;
+	Argument : I_LogArgument := 0;
+END_VAR]]></Declaration>
+    </Method>
+  </Itf>
+</TcPlcObject>

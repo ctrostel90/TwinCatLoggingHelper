@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="LogMessage" Id="{6744a647-59d8-4a0e-b6fa-34f9ee18a173}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK LogMessage IMPLEMENTS I_LogMessage
+VAR
+	{attribute 'hide'}
+	_Message : T_MaxString;
+	{attribute 'hide'}
+	_Severity : USINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Property Name="Message" Id="{e9f13044-6913-4c1e-89ff-e281fe3caeec}">
+      <Declaration><![CDATA[{attribute 'monitoring':='call'}
+PROPERTY Message : T_MaxString]]></Declaration>
+      <Get Name="Get" Id="{c9aa7f3f-bd9d-4ea0-b4f7-926d1a9d54d8}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Message := _Message;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{e61b5359-3e1b-4418-a3b3-35230b74f67e}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Message := Message;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+    <Property Name="Severity" Id="{dc09d0d2-da80-42d1-afc3-835a9cd678f6}">
+      <Declaration><![CDATA[{attribute 'monitoring':='call'}
+PROPERTY Severity : USINT]]></Declaration>
+      <Get Name="Get" Id="{ac033b73-5da9-4d83-8f50-3528599b4d83}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[Severity := _Severity;]]></ST>
+        </Implementation>
+      </Get>
+      <Set Name="Set" Id="{cf1b165f-7e93-478e-8d08-5a14c026c9af}">
+        <Declaration><![CDATA[
+VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[_Severity := Severity;]]></ST>
+        </Implementation>
+      </Set>
+    </Property>
+  </POU>
+</TcPlcObject>

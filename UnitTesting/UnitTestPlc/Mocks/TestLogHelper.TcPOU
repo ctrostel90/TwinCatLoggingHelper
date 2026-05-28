@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="TestLogHelper" Id="{bf6c6d90-387c-4ae8-af46-3138d7ac899d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK TestLogHelper
+VAR_GENERIC CONSTANT
+	SubSize : USINT;
+END_VAR
+ EXTENDS LogHelper<SubSize>
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="GetLoggerAtIndex" Id="{e18be55b-c63d-4206-bcf3-f12bd0b6bbf4}">
+      <Declaration><![CDATA[METHOD GetLoggerAtIndex : I_Logger
+VAR_INPUT
+	Index : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[GetLoggerAtIndex := _SubscribedLoggers[Index];]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="SubscribedCount" Id="{c0c3bbd1-672a-4b9b-a6ec-2c27a7c8f8b2}">
+      <Declaration><![CDATA[PROPERTY SubscribedCount : UDINT]]></Declaration>
+      <Get Name="Get" Id="{60db6be2-47b7-4cce-b0ce-7258338bae32}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[SubscribedCount := SubscriberCount;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+  </POU>
+</TcPlcObject>

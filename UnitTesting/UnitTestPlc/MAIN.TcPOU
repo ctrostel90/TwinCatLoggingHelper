@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="MAIN" Id="{53c662d6-b152-4044-a2e7-85b94a91ed0b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	LocalLogMessages : LocalLogMessages_Test;
+	LogHelperPubSub	 : LogHelperPubSub_Test;
+	messageTests	 : LogMessageBackers_Test;
+	sourceTests		 : LogSourceBackers_Test;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Tc3_PlcTestFramework.TestController.TestCtrl(); 
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

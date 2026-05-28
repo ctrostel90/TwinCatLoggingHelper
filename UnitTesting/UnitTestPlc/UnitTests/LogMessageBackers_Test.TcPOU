@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="LogMessageBackers_Test" Id="{fdb3ba85-db9d-4939-a555-4fc38bffee18}" SpecialFunc="None">
+    <Declaration><![CDATA[{ attribute 'Name':='LogMessageBackers-Test' }
+{ attribute 'Timeout':='t#5s' }
+{ attribute 'Owner':='TestOwner' }
+FUNCTION_BLOCK LogMessageBackers_Test EXTENDS FB_TestCaseBase
+VAR
+	Message : LogMessage;
+	expectedMessage : STRING := 'Test';
+	expectedSeverity : USINT := 1;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Message.Message	 := expectedMessage;
+Message.Severity := expectedSeverity;
+AssertMsg(Message.Message = expectedMessage, 'Message getter/setter does NOT work');
+AssertMsg(Message.Severity = expectedSeverity, 'Severity getter/setter does NOT work');
+Succeeded();]]></ST>
+    </Implementation>
+    <Method Name="Cleanup" Id="{af55f438-5ce1-47fe-a61e-1e93fa6bb622}">
+      <Declaration><![CDATA[(*Must be implemented if you want to use fastmode*)
+METHOD CleanUp : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CleanUp := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

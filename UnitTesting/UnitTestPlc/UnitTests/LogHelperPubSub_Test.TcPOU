@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="LogHelperPubSub_Test" Id="{6355d247-2d80-43f2-8e0e-c7c9b049aeaf}" SpecialFunc="None">
+    <Declaration><![CDATA[{ attribute 'Name':='LogSourcePubSub-Test' }
+{ attribute 'Timeout':='t#5s' }
+{ attribute 'Owner':='TestOwner' }
+FUNCTION_BLOCK LogHelperPubSub_Test EXTENDS FB_TestCaseBase
+VAR
+	Local		   : LocalLogger;
+	Helper		   : TestLogHelper<2>;
+	Source		   : LogSource;
+	Message		   : LogMessage;
+	expectedCount  : UDINT;
+	actualLogger   : I_Logger;
+	expectedLogger : I_Logger	  := Local;
+	expectedTime   : T_FILETIME64 := 1234;
+	ExpectedMessage : STRING;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Local.ClearLog();
+//Subscribe
+Helper.Subscribe(Local);
+actualLogger := Helper.GetLoggerAtIndex(0);
+AssertMsg(Helper.SubscribedCount = 1, 'Subscribed Count incorrect');
+AssertMsg(actualLogger = expectedLogger, 'Logger at index 0 incorrect');
+
+//Log message
+Source.SourceName := 'Test';
+Source.Timestamp  := 123456789;
+Message.Message	  := 'Message';
+Message.Severity  := 12;
+Helper.LogMessage(Source, Message);
+AssertMsg(Local.Messages[0] <> '', 'Subscribed logger did not receive log message');
+
+//Unsubscribe
+Helper.Unsubscribe(Local);
+AssertMsg(Helper.SubscribedCount = 0, 'Unsubscribe failed');
+Succeeded();]]></ST>
+    </Implementation>
+    <Method Name="Cleanup" Id="{5c45ce90-fda4-4753-9f6b-e1bb72211ba9}">
+      <Declaration><![CDATA[(*Must be implemented if you want to use fastmode*)
+METHOD CleanUp : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CleanUp := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
