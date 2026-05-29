@@ -3,6 +3,7 @@
   <POU Name="MAIN" Id="{53c662d6-b152-4044-a2e7-85b94a91ed0b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	LocalLogFull	 : LocalLog_LogToFull_Test;
 	LocalLogMessages : LocalLogMessages_Test;
 	LogHelperPubSub	 : LogHelperPubSub_Test;
 	messageTests	 : LogMessageBackers_Test;

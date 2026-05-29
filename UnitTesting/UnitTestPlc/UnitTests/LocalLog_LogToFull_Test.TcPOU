@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
+  <POU Name="LocalLog_LogToFull_Test" Id="{9adfe431-220c-4de7-a680-ac4df147e0ce}" SpecialFunc="None">
+    <Declaration><![CDATA[{ attribute 'Name':='LocalLog_LogToFull_Test' }
+{ attribute 'Timeout':='t#5s' }
+{ attribute 'Owner':='TestOwner' }
+FUNCTION_BLOCK LocalLog_LogToFull_Test EXTENDS FB_TestCaseBase
+VAR
+	Local			: LocalLogger;
+	Source			: LogSource;
+	Message			: LogMessage;
+	i				: UDINT;
+	expectedMessage : ARRAY[0..Parameters.MaxMessages - 1] OF STRING;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Local.ClearLog();
+FOR i := 0 TO Parameters.MaxMessages - 1 DO
+	Source.SourceName								:= 'Test';
+	Source.Timestamp								:= 123456789;
+	Message.Message									:= CONCAT('Message ', TO_STRING(i));
+	Message.Severity								:= 12;
+	expectedMessage[Parameters.MaxMessages - 1 - i] := CONCAT('1601-01-01-00:00:12.345 Sev: ',CONCAT(TO_STRING(Message.Severity),CONCAT(' Test: Message ', TO_STRING(i))));
+	Local.LogMessage(Source, Message);
+END_FOR
+
+FOR i := 0 TO Parameters.MaxMessages - 1 DO
+	AssertMsg(Local.Messages[i] = ExpectedMessage[i], CONCAT('Expected: ', CONCAT(ExpectedMessage[i], CONCAT( ' Actual: ', Local.Messages[i]))));
+END_FOR
+
+Succeeded();]]></ST>
+    </Implementation>
+    <Method Name="Cleanup" Id="{40fef02f-f542-48ec-979b-b3b7a1ffb3eb}">
+      <Declaration><![CDATA[(*Must be implemented if you want to use fastmode*)
+METHOD CleanUp : BOOL
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Local.ClearLog();
+CleanUp := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

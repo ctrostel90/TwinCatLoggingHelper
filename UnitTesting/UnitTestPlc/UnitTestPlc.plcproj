@@ -30,6 +30,9 @@
     <Compile Include="UnitTests\LocalLogMessages_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UnitTests\LocalLog_LogToFull_Test.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UnitTests\LogMessageBackers_Test.TcPOU">
       <SubType>Code</SubType>
     </Compile>

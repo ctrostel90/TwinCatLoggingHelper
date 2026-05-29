@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.18">
-  <POU Name="LocalLogMessages_Test" Id="{72e7fcf3-8e9b-43cb-bef1-be8371459581}" SpecialFunc="None">
+  <POU Name="LocalLogMessages_Test_1" Id="{0bc0c4cd-d800-47a4-a75d-872653cea6c2}" SpecialFunc="None">
     <Declaration><![CDATA[{ attribute 'Name':='LocalLogMessages-Test' }
 { attribute 'Timeout':='t#5s' }
 { attribute 'Owner':='TestOwner' }
-FUNCTION_BLOCK LocalLogMessages_Test EXTENDS FB_TestCaseBase
+FUNCTION_BLOCK LocalLogMessages_Test_1 EXTENDS FB_TestCaseBase
 VAR
 	Local		   : LocalLogger;
 	Source		   : LogSource;
@@ -17,15 +17,14 @@ VAR
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[Local.ClearLog();
-
 //Log message
 Source.SourceName := 'Test';
 Source.Timestamp  := 123456789;
 Message.Message	  := 'Message';
 Message.Severity  := 12;
 Local.LogMessage(Source, Message);
-ExpectedMessage := CONCAT('1601-01-01-00:00:12.345 Sev: ', CONCAT(TO_STRING(Message.Severity), ' Test: Message'));
-AssertMsg(Local.Messages[0] = ExpectedMessage, CONCAT('Expected: ', CONCAT(ExpectedMessage, CONCAT(' Actual: ', Local.Messages[0]))));
+ExpectedMessage := '1601-01-01-00:00:12.345 Test: Message';
+AssertMsg(Local.Messages[0] = ExpectedMessage, CONCAT('Expected: ', CONCAT(ExpectedMessage, CONCAT(' Actual: ', Local.Messages[0])))); 
 
 //Test Shift
 Source.SourceName := 'Test';
@@ -33,13 +32,13 @@ Source.Timestamp  := 123456789;
 Message.Message	  := 'Message 2';
 Message.Severity  := 12;
 Local.LogMessage(Source, Message);
-ExpectedMessage := CONCAT('1601-01-01-00:00:12.345 Sev: ', CONCAT(TO_STRING(Message.Severity), ' Test: Message 2'));
-AssertMsg(Local.Messages[0] = ExpectedMessage, CONCAT('Expected: ', CONCAT(ExpectedMessage, CONCAT(' Actual: ', Local.Messages[0]))));
-ExpectedMessage := CONCAT('1601-01-01-00:00:12.345 Sev: ', CONCAT(TO_STRING(Message.Severity), ' Test: Message'));
-AssertMsg(Local.Messages[1] = ExpectedMessage, CONCAT('Expected: ', CONCAT(ExpectedMessage, CONCAT(' Actual: ', Local.Messages[1]))));
+ExpectedMessage := '1601-01-01-00:00:12.345 Test: Message 2';
+AssertMsg(Local.Messages[0] = ExpectedMessage, CONCAT('Expected: ', CONCAT(ExpectedMessage, CONCAT(' Actual: ', Local.Messages[0])))); 
+ExpectedMessage := '1601-01-01-00:00:12.345 Test: Message';
+AssertMsg(Local.Messages[1] = ExpectedMessage, CONCAT('Expected: ', CONCAT(ExpectedMessage, CONCAT(' Actual: ', Local.Messages[1])))); 
 Succeeded();]]></ST>
     </Implementation>
-    <Method Name="Cleanup" Id="{0e5cf886-1174-4d79-8499-841dbb203051}">
+    <Method Name="Cleanup" Id="{e6257f5b-6c80-499e-91de-abe399242abe}">
       <Declaration><![CDATA[(*Must be implemented if you want to use fastmode*)
 METHOD CleanUp : BOOL
 ]]></Declaration>
