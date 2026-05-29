@@ -75,9 +75,9 @@ END_FOR]]></ST>
 VAR_INPUT
 	Logger : I_Logger;
 END_VAR
+
 VAR
 	i : USINT;
-	
 END_VAR]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF SubscriberCount = 0 THEN

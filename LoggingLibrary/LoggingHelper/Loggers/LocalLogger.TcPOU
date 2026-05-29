@@ -44,7 +44,7 @@ END_IF
 
 TimeString := SYSTEMTIME_TO_STRING(FILETIME64_TO_SYSTEMTIME(TimeStamp));
 //shift messages down
-FOR i := 1 TO Parameters.MaxMessages - 1 DO
+FOR i := 1 TO Parameters.MaxMessages - 2 DO
 	_Messages[Parameters.MaxMessages - i] := _Messages[Parameters.MaxMessages - 1 - i];
 END_FOR
 
