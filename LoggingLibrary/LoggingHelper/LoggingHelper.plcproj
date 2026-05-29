@@ -68,6 +68,9 @@
       <SubType>Code</SubType>
       <SystemCall>true</SystemCall>
     </Compile>
+    <Compile Include="SimpleLogger\I_LogPublisher.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SimpleLogger\LogHelper.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -75,9 +78,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Internal\Interfaces\I_Base.TcIO">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="_Internal\Interfaces\I_LogPublisher.TcIO">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
